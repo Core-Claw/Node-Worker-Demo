@@ -4,3 +4,4 @@ builds/
 *.log
 *.logs
 *.exe
+node_modules/
