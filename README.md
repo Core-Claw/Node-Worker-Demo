@@ -22,8 +22,8 @@
 | **`input_schema.json`** | UI input form configuration file |
 | **`README.md`** | Project documentation |
 | **`sdk.js`** | SDK base capabilities |
-| **`sdk_pd.js`** | Enhanced data processing module |
-| **`sdk_pd_grpc.js`** | Network communication module |
+| **`sdk_pb.js`** | Enhanced data processing module |
+| **`sdk_grpc_pb.js`** | Network communication module |
 
 # ⭐ Script Core SDK Files
 

@@ -112,6 +112,21 @@ exports.result = {
         handleGrpcResponse(err, response, resolve, reject);
       });
     });
+  },
+
+  upsertData: function (obj, uniqueKey) {
+    if (!uniqueKey) {
+      return Promise.reject(new Error("uniqueKey is required"));
+    }
+    if (!Object.prototype.hasOwnProperty.call(obj, uniqueKey)) {
+      return Promise.reject(new Error(`uniqueKey [${uniqueKey}] not found in data`));
+    }
+
+    const upsertObj = Object.assign({}, obj, {
+      __coreclaw_upsert_key__: uniqueKey,
+      __coreclaw_upsert_value__: String(obj[uniqueKey])
+    });
+    return this.pushData(upsertObj);
   }
 };
 
