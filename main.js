@@ -92,6 +92,12 @@ async function main() {
 
     } catch (err) {
         await coresdk.log.error(`Script execution error: ${err.message}`)
+        const errorHeaders = [
+            { label: 'Error', key: 'error', format: 'text' },
+            { label: 'Error Code', key: 'error_code', format: 'text' },
+            { label: 'Status', key: 'status', format: 'text' },
+        ]
+        await coresdk.result.setTableHeader(errorHeaders)
         const errorResult = {
             error: err.message,
             error_code: '500',

@@ -162,7 +162,7 @@ for (let index = 0; index < dataObject.length; index++) {
 
 **Important Notes:**
 
-1. Setting headers and pushing data can be done in any order
+1. Set table headers before pushing data
 2. Keys in the data must match the table header keys exactly 
 3. Data must be pushed row by row, not all at once
 4. Logging after each push is recommended for monitoring progress
@@ -231,14 +231,7 @@ async function run() {
             ]
         }
 
-        // 5. Push result data
-        await coresdk.log.info(`Processing result: ${JSON.stringify(result)}`)
-        const dataObject = result.data
-        for (let index = 0; index < dataObject.length; index++) {
-            await coresdk.result.pushData(dataObject[index])
-        }
-
-        // 6. Set table headers
+        // 5. Set table headers
         const headers = [
             {
                 label: 'URL',
@@ -255,9 +248,23 @@ async function run() {
         await coresdk.result.setTableHeader(headers)
 
         await coresdk.log.info('Script execution completed')
+
+        // 6. Push result data
+        await coresdk.log.info(`Processing result: ${JSON.stringify(result)}`)
+        const dataObject = result.data
+        for (let index = 0; index < dataObject.length; index++) {
+            await coresdk.result.pushData(dataObject[index])
+        }
+
     } catch (err) {
         await coresdk.log.error(`Script execution error: ${err.message}`)
 
+        const errorHeaders = [
+            { label: 'Error', key: 'error', format: 'text' },
+            { label: 'Error Code', key: 'error_code', format: 'text' },
+            { label: 'Status', key: 'status', format: 'text' },
+        ]
+        await coresdk.result.setTableHeader(errorHeaders)
         const errorResult = {
             error: err.message,
             error_code: '500',
