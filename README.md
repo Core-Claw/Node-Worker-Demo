@@ -1,4 +1,3 @@
-[English](https://docs.coreclaw.com/node-js-actor) | [中文](https://docs.coreclaw.com/cn/actor/actor/node-js-actor)
 
 
 ### Required Files (Located in Project Root)
